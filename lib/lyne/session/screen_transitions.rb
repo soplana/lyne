@@ -6,6 +6,7 @@ module Lyne::Session
         @page.fill_in '_pr_confData_sqexid', with: @options[:account]
         @page.fill_in '_pr_confData_passwd', with: @options[:password]
         @page.find(:xpath, ".//a[@id='btLogin']").click
+        @page.html
       end
     end
 
@@ -31,6 +32,7 @@ module Lyne::Session
     def move_to
       yield
       sleep(2)
+      @cache[@page.current_path] = @page.html
     end
   end
 end

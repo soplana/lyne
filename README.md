@@ -15,7 +15,7 @@ $ brew update && brew install phantomjs
 # use
 
 ```bash
-$ gem install Lyne
+$ gem install lyne
 ```
 ```
 gem 'lyne'

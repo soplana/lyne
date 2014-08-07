@@ -76,6 +76,12 @@ module Lyne::Parser
     end
 
     private
+    def get_parse_data option
+      super(option)
+    rescue
+      "家ないよ"
+    end
+
     def parse_target_xpath
       "//div[@id='myHouseStage']"
     end

@@ -16,6 +16,8 @@ module Lyne::Session
       Capybara.default_selector = :xpath
       @page = Capybara::Session.new(:poltergeist)
       @page.driver.headers = {'User-Agent' => @options[:user_agent]}
+
+      setup_cache
     end
 
     def start!
@@ -62,6 +64,10 @@ module Lyne::Session
 
     def character_select_url?
       @page.current_path == "/sc/login/characterselect/"
+    end
+
+    def setup_cache
+      @cache = {}
     end
   end
 end
