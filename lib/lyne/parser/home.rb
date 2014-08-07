@@ -56,15 +56,18 @@ module Lyne::Parser
 
   class House < Home
     def country
-      get_parse_data(index: 3).split[0].scan(/.*住宅村/)[0]
+      text = get_parse_data(index: 3)
+      text.split[0].scan(/.*住宅村/)[0] if text.present?
     end
 
     def city
-      get_parse_data(index: 3).split[0].gsub(/#{country}/,'')
+      text = get_parse_data(index: 3)
+      text.split[0].gsub(/#{country}/,'') if text.present?
     end
 
     def house_number
-      get_parse_data(index: 3).split[1]
+      text = get_parse_data(index: 3)
+      text.split[1] if text.present?
     end
 
     def setting
@@ -79,7 +82,7 @@ module Lyne::Parser
     def get_parse_data option
       super(option)
     rescue
-      "家ないよ"
+      nil
     end
 
     def parse_target_xpath

@@ -58,6 +58,20 @@ module Lyne::Page
         @character = Lyne::Page::Character::Base.new(session)
       end
 
+      def change character_id
+        @session.character_change character_id
+        @character = Lyne::Page::Character::Base.new(@session)
+
+        # CCのタイミングで存在するインスタンス変数を削除
+        Lyne::Page::Character::Target.constants.each do |target|
+          formatted_name = target.to_s.downcase
+          if instance_variable_defined?("@#{formatted_name}")
+            remove_instance_variable("@#{formatted_name}")
+          end
+        end
+        self
+      end
+
       Lyne::Page::Character::Target.constants.each do |target|
         formatted_name = target.to_s.downcase
         define_method(formatted_name) do

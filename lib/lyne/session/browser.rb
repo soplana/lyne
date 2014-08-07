@@ -43,6 +43,11 @@ module Lyne::Session
       @page.html
     end
 
+    def character_change character_id
+      go :charaselect
+      go_to_home character_id
+    end
+
     private
     def default_options
       {

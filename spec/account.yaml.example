@@ -2,3 +2,10 @@ account:
   name:
   password:
   character_id:
+
+# account:
+#   name:         hogehoge
+#   password:     fugafuga
+#   character_id:
+#     - 111111
+#     - 222222

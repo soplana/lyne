@@ -16,15 +16,21 @@ module Lyne::Session
       end
     end
 
-    def go_to_home
+    def go_to_home character_id=''
       move_to do
-        @page.find(:xpath, "//a[@rel='#{@options[:character_id]}']").click
+        @page.find(:xpath, "//a[@rel='#{character_id.presence || @options[:character_id]}']").click
+      end
+    end
+
+    def go_to_charaselect
+      move_to do
+        @page.find(:xpath, "//a[@href='/sc/home/characterchange/']").click
       end
     end
 
     def visit_to_home
       move_to do
-        @page.visit('sc/home/')
+        @page.visit('/sc/home/')
       end
     end
 

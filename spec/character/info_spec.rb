@@ -10,7 +10,7 @@ describe Lyne::Page::Character do
       dqx = Lyne::Account.new({
         account:      @account[:name],
         password:     @account[:password],
-        character_id: @account[:character_id]
+        character_id: @account[:character_id][0]
       })
       @character = dqx.character
     end
@@ -46,5 +46,20 @@ describe Lyne::Page::Character do
         it { expect(subject.house_number).to match(/.*サイズ）$/) }
       end
     end
+
+    if YAML.load_file("./spec/account.yaml")['account']['character_id'][1]
+      context 'キャラチェンジできる' do
+        before(:all) do
+          @id = @character.info.id
+          @other_character = @character.change(@account[:character_id][1])
+        end
+        subject{ @other_character.info }
+
+        context 'キャラチェンジ後とinfo.idが違う' do
+          it { expect(subject.id).not_to match(@id) }
+        end
+      end
+    end
+
   end
 end
