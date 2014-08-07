@@ -34,9 +34,18 @@ dqx = Lyne::Account.new(
   character_id: 975829418411224
 )
 
-info = dqx.character.info
+chara = dqx.character
+
+info = chara.info
 info.id   #=> "TV327-610"
 info.name #=> "ソプラナ"
+# フレンド申請おｋ
+
+house = chara.house
+house.country      #=> "アズラン住宅村"
+house.city         #=> "おごそかな林道地区"
+house.house_number #=> "3849丁目 6番地 （Ｓサイズ）"
+# 遊びにきておｋ
 ```
 
 # test
