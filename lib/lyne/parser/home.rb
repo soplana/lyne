@@ -5,54 +5,79 @@ module Lyne::Parser
         @session.first_visit!
       end
     end
+  end
 
+  class Info < Home
     def name
-      get do
-        @result.xpath("//h2[@id='myCharacterName']").text.gsub(/\[|\]/, '')
-      end
+      @result.xpath("//h2[@id='myCharacterName']").text.gsub(/\[|\]/, '')
     end
 
     def job
-      get_info_data do {index: 11} end
+      get_parse_data(index: 11)
     end
 
     def tribe
-      get_info_data do
-        {index: 7, regexp: /：|#{nbsp}|男|女/}
-      end
+      get_parse_data(index: 7, regexp: /：|#{nbsp}|男|女/)
     end
 
     def level
-      get_info_data do {index: 15} end
+      get_parse_data(index: 15)
     end
 
     def id
-      get_info_data do {index: 3} end
+      get_parse_data(index: 3)
     end
 
     def next_level
-      get_info_data do {index: 19} end
+      get_parse_data(index: 19)
     end
 
     def gold
-      get_info_data do {index: 23} end
+      get_parse_data(index: 23)
     end
 
     def genki_charge
-      get_info_data do {index: 27} end
+      get_parse_data(index: 27)
     end
 
     private
-    def get_info_data
-      get do
-        raise Lyne::Error::ParseError.new if info_data.blank?
-        option = yield.reverse_merge({regexp: /：|#{nbsp}/})
-        info_data.children[option[:index]].children.text.gsub(option[:regexp], '')
-      end
+    def default_parse_result_options
+      {regexp: /：|#{nbsp}/}
     end
 
-    def info_data
-      @info_data ||= (@result.xpath("//div[@id='myCharacterStatusList']").children.presence || [])[1]
+    def parse_target_xpath
+      "//div[@id='myCharacterStatusList']"
+    end
+
+    def parse_data
+      (super.children.presence || [])[1]
+    end
+  end
+
+  class House < Home
+    def country
+      get_parse_data(index: 3).split[0].scan(/.*住宅村/)[0]
+    end
+
+    def city
+      get_parse_data(index: 3).split[0].gsub(/#{country}/,'')
+    end
+
+    def house_number
+      get_parse_data(index: 3).split[1]
+    end
+
+    def setting
+      get_parse_data(index: 5)
+    end
+
+    def setting_type
+      get_parse_data(index: 7)
+    end
+
+    private
+    def parse_target_xpath
+      "//div[@id='myHouseStage']"
     end
   end
 end

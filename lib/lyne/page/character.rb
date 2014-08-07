@@ -22,10 +22,6 @@ module Lyne::Page
         PROPERTYS = %w(name job tribe level next_level genki_charge id gold)
         include Lyne::Page::Hook::CreateProperty
 
-        def initialize session
-          super
-        end
-
         private
         def table_headers
           %w(ID 名前 種族 職業 レベル 次のレベルまで 所持金 元気チャージ)
@@ -34,15 +30,20 @@ module Lyne::Page
         def table_rows
           [id, name, job, tribe, level, next_level, gold, genki_charge]
         end
-      end
-
-      class Arms < Lyne::Page::Character::Base
-        def name
-        end
 
         private
         def parser_class
-          Lyne::Parser::Home
+          Lyne::Parser::Info
+        end
+      end
+
+      class House < Lyne::Page::Character::Base
+        PROPERTYS = %w(country city house_number setting setting_type)
+        include Lyne::Page::Hook::CreateProperty
+
+        private
+        def parser_class
+          Lyne::Parser::House
         end
       end
     end

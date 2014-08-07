@@ -34,5 +34,17 @@ describe Lyne::Page::Character do
         it { expect(subject.gold).to match(/.*G$/) }
       end
     end
+
+    context 'Houseが取得できているる' do
+      subject{ @character.house }
+
+      context 'countryが取得できている' do
+        it { expect(subject.country).to match(/.*住宅村$/) }
+      end
+
+      context 'house_numberが取得できている' do
+        it { expect(subject.house_number).to match(/.*サイズ）$/) }
+      end
+    end
   end
 end
