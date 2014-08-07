@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["sonosheet.jp@gmail.com"]
   spec.summary       = %q{dqx gem}
   spec.description   = %q{冒険者の広場をスクレイピングするgemです}
-  spec.homepage      = "http://leeno.jp"
+  spec.homepage      = "https://github.com/soplana/lyne"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
