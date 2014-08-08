@@ -3,7 +3,7 @@ module Lyne::Page
   # Character情報に紐づくオブジェクト
   module Character
     class Base
-      #include Lyne::Page::ShowTable
+      include Lyne::Page::ShowTable
 
       def initialize session
         @parser = parser_class.new(session)
@@ -24,7 +24,7 @@ module Lyne::Page
 
         private
         def table_headers
-          %w(ID 名前 種族 職業 レベル 次のレベルまで 所持金 元気チャージ)
+          %w(ID 名前 職業 種族 レベル 次のレベルまで 所持金 元気チャージ)
         end
 
         def table_rows
@@ -38,10 +38,18 @@ module Lyne::Page
       end
 
       class House < Lyne::Page::Character::Base
-        PROPERTYS = %w(country city house_number setting setting_type)
+        PROPERTYS = %w(city area house_number setting setting_type)
         include Lyne::Page::Hook::CreateProperty
 
         private
+        def table_headers
+          %w(町 地区 番地 ウェルカム設定 設定内容)
+        end
+
+        def table_rows
+          [city, area, house_number, setting, setting_type]
+        end
+
         def parser_class
           Lyne::Parser::House
         end

@@ -38,8 +38,8 @@ describe Lyne::Page::Character do
     context 'Houseが取得できているる' do
       subject{ @character.house }
 
-      context 'countryが取得できている' do
-        it { expect(subject.country).to match(/.*住宅村$/) }
+      context 'cityが取得できている' do
+        it { expect(subject.city).to match(/.*住宅村$/) }
       end
 
       context 'house_numberが取得できている' do

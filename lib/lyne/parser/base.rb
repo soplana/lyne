@@ -21,12 +21,12 @@ module Lyne::Parser
       raise Lyne::Error::ParseError.new if parse_data.blank?
       option = option.reverse_merge(default_parse_result_options)
       text   = parse_data.children[option[:index]].children.text
-
-      if option[:regexp].present?
-        text.gsub(option[:regexp], '')
-      else
-        text
-      end
+      text   = if option[:regexp].present?
+                 text.gsub(option[:regexp], '')
+               else
+                 text
+               end
+      text.gsub(/\s|#{nbsp}/,'')
     end
 
     def default_parse_result_options

@@ -55,19 +55,27 @@ module Lyne::Parser
   end
 
   class House < Home
-    def country
+    def city
       text = get_parse_data(index: 3)
       text.split[0].scan(/.*住宅村/)[0] if text.present?
     end
 
-    def city
+    def area
       text = get_parse_data(index: 3)
-      text.split[0].gsub(/#{country}/,'') if text.present?
+      if text.present? && text =~ /\d/
+        text[0...text.index(/\d/)].gsub(/#{city}/,'')
+      else
+        nil
+      end
     end
 
     def house_number
       text = get_parse_data(index: 3)
-      text.split[1] if text.present?
+      if text.present? && text =~ /\d/
+        text[text.index(/\d/)..-1]
+      else
+        nil
+      end
     end
 
     def setting

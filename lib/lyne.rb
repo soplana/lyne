@@ -12,7 +12,7 @@ require './lib/lyne/session/browser.rb'
 require './lib/lyne/parser/base.rb'
 require './lib/lyne/parser/home.rb'
 require './lib/lyne/page/hook.rb'
-#require './lib/lyne/page/show_table.rb'
+require './lib/lyne/page/show_table.rb'
 require './lib/lyne/page/character.rb'
 
 module Lyne
